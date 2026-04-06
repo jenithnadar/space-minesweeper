@@ -109,7 +109,7 @@ scoreForm.addEventListener('submit', async (e) => {
   submitBtn.textContent = 'Submitting...';
 
   try {
-    await fetch('/api/scores', {
+    await fetch('/.netlify/functions/scores', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
