@@ -1,32 +1,33 @@
-import { getStore } from "@netlify/blobs";
+let scores = [];
 
 export async function handler(event) {
-  const store = getStore("scores");
 
+  // GET → return scores
   if (event.httpMethod === "GET") {
-    const data = await store.get("leaderboard", { type: "json" }) || [];
     return {
       statusCode: 200,
-      body: JSON.stringify(data)
+      body: JSON.stringify(scores)
     };
   }
 
+  // POST → save score
   if (event.httpMethod === "POST") {
-    const body = JSON.parse(event.body);
+    const data = JSON.parse(event.body);
 
-    let data = await store.get("leaderboard", { type: "json" }) || [];
+    scores.push({
+      name: data.name,
+      time: data.time
+    });
 
-    data.push(body);
+    // Sort by best time
+    scores.sort((a, b) => a.time - b.time);
 
-    data.sort((a, b) => a.time - b.time);
-
-    data = data.slice(0, 10);
-
-    await store.set("leaderboard", data);
+    // Keep top 10
+    scores = scores.slice(0, 10);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true })
+      body: JSON.stringify({ message: "Saved" })
     };
   }
 
