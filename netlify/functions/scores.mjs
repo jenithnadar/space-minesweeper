@@ -1,8 +1,6 @@
 let scores = [];
 
 export async function handler(event) {
-
-  // GET → return scores
   if (event.httpMethod === "GET") {
     return {
       statusCode: 200,
@@ -10,19 +8,16 @@ export async function handler(event) {
     };
   }
 
-  // POST → save score
   if (event.httpMethod === "POST") {
     const data = JSON.parse(event.body);
 
     scores.push({
       name: data.name,
-      time: data.time
+      time: data.time,
+      difficulty: data.difficulty
     });
 
-    // Sort by best time
     scores.sort((a, b) => a.time - b.time);
-
-    // Keep top 10
     scores = scores.slice(0, 10);
 
     return {
@@ -32,7 +27,6 @@ export async function handler(event) {
   }
 
   return {
-    statusCode: 405,
-    body: "Method Not Allowed"
+    statusCode: 405
   };
 }
