@@ -420,7 +420,7 @@ async function loadLeaderboard(difficulty) {
   listEl.innerHTML = '<p class="loading">Loading...</p>';
 
   try {
-    const res = await fetch(`/api/scores?difficulty=${difficulty}`);
+    const res = await fetch(`/.netlify/functions/scores?difficulty=${difficulty}`);
     const scores = await res.json();
 
     if (!scores.length) {
