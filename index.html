@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Minesweeper</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💣</text></svg>">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Minesweeper</h1>
+    </header>
+
+    <div id="menu-screen" class="screen active">
+      <div class="menu-card">
+        <h2>Choose Difficulty</h2>
+        <button class="btn btn-easy" data-difficulty="easy">Easy<span>9x9 &middot; 10 mines</span></button>
+        <button class="btn btn-medium" data-difficulty="medium">Medium<span>16x16 &middot; 40 mines</span></button>
+        <button class="btn btn-hard" data-difficulty="hard">Hard<span>16x30 &middot; 99 mines</span></button>
+        <button class="btn btn-leaderboard" id="show-leaderboard">Leaderboard</button>
+      </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+      <div class="game-bar">
+        <div class="game-stat">
+          <span id="mine-count">0</span>
+          <span class="stat-label">Mines</span>
+        </div>
+        <button id="restart-btn" class="face-btn">😀</button>
+        <div class="game-stat">
+          <span id="timer">000</span>
+          <span class="stat-label">Time</span>
+        </div>
+      </div>
+      <div class="game-controls">
+        <button id="flag-toggle" class="control-btn">🚩 Flag Mode: OFF</button>
+        <button id="back-to-menu" class="control-btn control-btn-back">Menu</button>
+      </div>
+      <div id="board-container">
+        <div id="board"></div>
+      </div>
+    </div>
+
+    <div id="leaderboard-screen" class="screen">
+      <div class="leaderboard-card">
+        <h2>Leaderboard</h2>
+        <div class="tab-bar">
+          <button class="tab active" data-tab="easy">Easy</button>
+          <button class="tab" data-tab="medium">Medium</button>
+          <button class="tab" data-tab="hard">Hard</button>
+        </div>
+        <div id="leaderboard-list">
+          <p class="loading">Loading...</p>
+        </div>
+        <button class="btn btn-back" id="back-from-leaderboard">Back</button>
+      </div>
+    </div>
+
+    <div id="win-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>You Won! 🎉</h2>
+        <p>Time: <span id="win-time"></span> seconds</p>
+        <form id="score-form">
+          <input type="text" id="player-name" placeholder="Enter your name" maxlength="20" required>
+          <button type="submit" class="btn btn-submit">Submit Score</button>
+        </form>
+        <button class="btn btn-play-again" id="play-again">Play Again</button>
+      </div>
+    </div>
+
+    <div id="lose-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Game Over 💥</h2>
+        <p>Better luck next time!</p>
+        <button class="btn btn-play-again" id="try-again">Try Again</button>
+        <button class="btn btn-back" id="lose-to-menu">Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
